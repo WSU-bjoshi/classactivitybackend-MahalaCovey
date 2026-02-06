@@ -49,5 +49,4 @@ export function getTodoById(id){
     console.log(todo.task);
 
     return todo;
-    //res.json({message:"Got", task: todo.task, done: task.done})
 }
