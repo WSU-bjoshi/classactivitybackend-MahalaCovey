@@ -12,25 +12,24 @@ export function getAllTodos(){
     return todos;
 }
 
+
 export function createTodo(task){
-    if(!task || typeof task !=="string" || task.trim ===""){
+      if(!task || typeof task !=="string" || task.trim()===""){
         // return res.status(400).json({error:"task is required. You should provide non-empty string"});
-        throw new error("Invaid task")
+        throw new error("Invalid task"); // Added ;
     }
 
-    const todo ={id: nextId++, task:task.trim(), done:false};
+    const todo ={id: nextId++, task:task.trim(), done: false};
     todos.push(todo);
-
     return todo;
 }
 
 export function toggleTodoById(id){
     const todo = todos.find(t => t.id === id);
-
-    if (!todo){
+    if(!todo){
         return null;
     }
-    todo.done = !todo.done;
+    todo.done= !todo.done;
     return todo;
 }
 
@@ -44,12 +43,11 @@ export function deleteTodoById(id){
     return todos.splice(todoIndex, 1)[0];
 }
 
-export function getById(req, res){ // New for getting ID and task
-   const id = Number(req.params.id)
-   const todo = todos.find(t => t.id === id);
+export function getTodoById(id){
+    const todo = todos.find(t => t.id === id);
 
-   if(!todo) return res.status(404).json({error:"todo not found", id});
+    console.log(todo.task);
 
-   console.log(todo.task);
-   res.json({message:"Got", task: todo.task, done: task.done})
+    return todo;
+    //res.json({message:"Got", task: todo.task, done: task.done})
 }
