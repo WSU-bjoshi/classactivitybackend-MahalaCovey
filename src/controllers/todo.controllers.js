@@ -1,8 +1,9 @@
-import { getAllTodos, createTodo, toggleTodoById, deleteTodoById, getTodoById } from "../services/todo.service.js";
+// import { getTodosService, createTodoService,toggleTodoByIdService,deleteTodoByIdService } from "../services/todo.service.js";
 
+import {getTodosService, createTodoService, toggleTodoByIdService, deleteTodoByIdService, getTodoByIdService} from "../services/todo.service.js";
 
 export function listTodos(req, res){
-    const todos = getAllTodos();
+    const todos = getTodosService();
     res.json({count: todos.length, todos});
 }
 
@@ -10,7 +11,7 @@ export function listTodos(req, res){
 export function createTodos(req, res){
     try{
         const {task} = req.body;
-        const todo = createTodo(task);
+        const todo = createTodoService(task);
         res.status(201).json({message:"Created", todo});
     } catch(err){
         res.status(400).json({error:err.message});
@@ -19,59 +20,36 @@ export function createTodos(req, res){
 
 export function toggleTodo(req, res){
     const id = Number(req.params.id);
-    const todo = toggleTodoById(id);
+    const todo = toggleTodoByIdService(id);
 
     if(!todo){
         return res.status(400).json({error : "Todo not found"});
     }
 
     todo.task = req.body.task;
-
     res.json({message:"Toggled", todo});
+
 }
+
 
 export function removeTodo(req, res){
     const id = Number(req.params.id);
-    const todo = deleteTodoById(id);
+    const todo = deleteTodoByIdService(id);
 
     if(!todo){
-        return res.status(400).json({error: "Todo not found"})
+        return res.status(400).json({error: "Todo not found"});
     }
 
-    res.json({message:"Deleted Successfully"})
+    res.json({message:"Deleted Successfully"});
 }
 
 export function getTodo(req, res){
     const id = Number(req.params.id);
-    const todo = getTodoById(id);
+    const todo = getTodoByIdService(id);
 
      if(!todo){
-        return res.status(400).json({error: "todo not found"})
+        return res.status(400).json({error: "todo not found"});
     }
 
-    res.json({message:"Got Successflly", todo})
+    res.json({message:"Got Successflly", todo});
 }
-
-// export function getById(req, res){ // New for getting ID and task
-//    const id = Number(req.params.id)
-//    const todo = todos.find(t => t.id === id);
-
-//    if(!todo) return res.status(404).json({error:"todo not found", id});
-
-//    console.log(todo.task);
-//    res.json({message:"Got", task: todo.task, done: task.done})
-// }
-
-// export function deleteById(req, res){ // New for deleting by ID
-//    const id = Number(req.params.id)
-//    const todo = todos.find(t => t.id === id);
-
-//    if(!todo) return res.status(404).json({error:"todo not found", id});
-
-//     const index = todos.indexOf(todo);    
-//     todos.splice(index, 1);
-    
-
-//    console.log(todo.task);
-//    res.json({message:"Deleted", todo})
-// }
