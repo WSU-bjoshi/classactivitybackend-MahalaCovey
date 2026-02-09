@@ -4,10 +4,10 @@ import {listTodos, createTodos, toggleTodo, removeTodo, getTodo } from "../contr
 
 const router = Router();
 
-router.get("/", listTodos); // WORKS
-router.get("/:id/toggle", getTodo); // New for getting by ID, WORKS
-router.post("/", createTodos); // WORKS
+router.get("/", listTodos); 
+router.get("/:id/toggle", getTodo); // New for getting by ID
+router.post("/", createTodos); 
 router.patch("/:id/toggle", toggleTodo);
-router.delete("/delete/:id", removeTodo); // WORKS
+router.delete("/delete/:id", removeTodo); 
 
 export default router;
