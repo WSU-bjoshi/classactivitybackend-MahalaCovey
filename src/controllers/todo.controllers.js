@@ -2,22 +2,21 @@
 
 import {getTodosService, createTodoService, toggleTodoByIdService, deleteTodoByIdService, getTodoByIdService} from "../services/todo.service.js";
 
-export function listTodos(req, res){
-    const todos = getTodosService();
+export async function listTodos(req, res){
+    const todos = await getTodosService();
     res.json({count: todos.length, todos});
 }
 
-
-export function createTodos(req, res){
+export async function createTodos(req, res){
     try{
         const {task} = req.body;
-        const todo = createTodoService(task);
+        const todo = await  createTodoService(task);
         res.status(201).json({message:"Created", todo});
     } catch(err){
         res.status(400).json({error:err.message});
     } 
 }
-
+    
 export function toggleTodo(req, res){
     const id = Number(req.params.id);
     const todo = toggleTodoByIdService(id);
