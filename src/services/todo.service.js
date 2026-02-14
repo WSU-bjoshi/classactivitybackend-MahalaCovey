@@ -8,36 +8,19 @@ export async function getTodosService(){
 
 export async function createTodoService(task){
     if(!task || typeof task !=="string" || task.trim()===""){
-        // return res.status(400).json({error:"task is required. You should provide non-empty string"});
         throw new error("Invalid task")
     }
     return await ToDoModel.createTodo(task);
 }
 
-function toggleTodoByIdService(id){
-    // const todo = todos.find(t => t.id === id);
-    // if(!todo){
-    //     return null;
-    // }
-    return ToDoModel.toggleTodoById(id);
+export async function toggleTodoByIdService(id, task){
+    return await ToDoModel.toggleTodoById(id, task);
 }
 
-function deleteTodoByIdService(id){
-    return ToDoModel.deleteTodoById(id);
+export async function deleteTodoByIdService(id){
+    return await ToDoModel.deleteTodoById(id);
 }
 
-function getTodoByIdService(id){
-    // const todo = todos.find(t => t.id === id);
-    // if(!todo){
-    //     return null;
-    // }
-    return ToDoModel.getTodoById(id);
+export async function getTodoByIdService(id){
+    return await ToDoModel.getTodoById(id);
 }
-
-export {
-    toggleTodoByIdService,
-    deleteTodoByIdService,
-    getTodoByIdService
-};
-
-

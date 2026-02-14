@@ -13,56 +13,27 @@ let todos =[
     {id:2, task:"Buy eggs", done: false}
 ]
 
-// function getAllTodos(){
-//     return todos;
-// }
-
 export async function createTodo(task){
-    //   if(!task || typeof task !=="string" || task.trim()===""){
-    //     // return res.status(400).json({error:"task is required. You should provide non-empty string"});
-    //     throw new error("Invalid task")
-    // }
-
-    // const todo ={id: nextId++, task:task.trim(), done: false};
-    // todos.push(todo);
-
-    // return todo;
     const [result] = await pool.query(
         "INSERT INTO todos(task) VALUES(?)", [task]
     );
     return {id: result.insertId, task, completed:false}
-
 }
 
-function toggleTodoById(id){
-    const todo = todos.find(t => t.id === id);
-    if(!todo){
-        return null;
-    }
-    todo.done= !todo.done;
-    return todo;
+export async function toggleTodoById(id, task){
+    const [result] = await pool.query("UPDATE todos SET completed = !completed, task = ? WHERE id = ?;", [task, id])
+    console.log("check 1 "+JSON.stringify(result));
+    return result;
 }
 
-function deleteTodoById(id){
-   const todoIndex = todos.findIndex(t => t.id === id);
-
-    if(todoIndex === -1){
-        return null;
-    }
-
-    return todos.splice(todoIndex, 1)[0]; // Replaced id with todoIndex
+export async function deleteTodoById(id){
+    const [result] = await pool.query("UPDATE todos SET in_use = false WHERE id = ?;", [id])
+    console.log(result);
+    return result;
 }
 
-function getTodoById(id){
-    const todo = todos.find(t => t.id === id);
-
-    console.log(todo.task);
-
-    return todo.task;
+export async function getTodoById(id){
+    const [result] = await pool.query("SELECT * FROM todos WHERE id = ?;", [id])
+    console.log(result);
+    return result;
 }
-
-export default {  
-    toggleTodoById, 
-    deleteTodoById,
-    getTodoById
-};
