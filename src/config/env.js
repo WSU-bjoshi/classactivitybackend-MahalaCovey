@@ -1,7 +1,5 @@
 import dotenv from "dotenv";
-
 dotenv.config();
-
 
 function requireEnv(name){
     const value = process.env[name];
@@ -18,4 +16,5 @@ export const env ={
     DATABASE_USER: (requireEnv("DATABASE_USER")),
     DATABASE_PASSWORD: (requireEnv("DATABASE_PASSWORD")),    
     DATABASE_NAME: (requireEnv("DATABASE_NAME")),
+    DATABASE_TYPE: (requireEnv("DATABASE_TYPE")),
 };
