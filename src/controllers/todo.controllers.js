@@ -44,7 +44,7 @@ export async function getTodo(req, res){
     const todo = await getTodoByIdService(id);
 
      if(!todo){
-        return res.status(400).json({error: "todo not found"});
+        return res.status(400).json({error: "Todo not found"});
     }
 
     res.json({message:"Got Successflly", todo});
