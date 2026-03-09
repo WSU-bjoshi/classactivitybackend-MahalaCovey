@@ -1,4 +1,4 @@
-import jwt from"jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 export function signAccessToken(payload){
     if(!process.env.JWT_JWT_SECRET){
