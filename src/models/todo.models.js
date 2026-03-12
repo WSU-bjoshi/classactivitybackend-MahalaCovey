@@ -3,7 +3,7 @@ import pool from "../db/connection.js";
 import Todo from "./Todo.js";
 
 export async function getAllTodos(){
-    return await Todo.findAll({order: [["id", "ASC"]]});
+    return await Todo.findAll({order: [["task_id", "ASC"]]});
 }
 
 let nextId = 3;

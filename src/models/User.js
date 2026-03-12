@@ -25,7 +25,7 @@ const User = sequelize.define(
     },
     {
         tableName: "users",
-        timestamps: true,
+        timestamps: false,
         indexes: [{unique:true, fields:["user_email"]}]
     }
 );

@@ -25,7 +25,7 @@ const Todo = sequelize.define(
     },
     {
         tableName:"tasks",
-        timestamps:true,
+        timestamps:false
     }
 );
 
