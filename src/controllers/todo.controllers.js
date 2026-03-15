@@ -1,42 +1,45 @@
-import {getTodosService, createTodoService, toggleTodoByIdService, deleteTodoByIdService, getTodoByIdService} from "../services/todo.service.js";
+import {getUserTodosService, createUserTodoService, toggleTodoByIdService, deleteTodoByIdService} from "../services/todo.service.js";
 
 export async function listTodos(req, res){
-    const todos = await getTodosService();
+    const todos = await getUserTodosService(req.user.id);
     res.json({count: todos.length, todos});
 }
 
-export async function createTodos(req, res){
+
+export async function createUserTodos(req, res){
     try{
+        console.log(req.body)
+        console.log(req.user.user_id)
+        
         const {task} = req.body;
-        const todo = await  createTodoService(task);
+        const todo = await createUserTodoService(req.user.user_id, task);
         res.status(201).json({message:"Created", todo});
     } catch(err){
         res.status(400).json({error:err.message});
     } 
 }
 
-export async function toggleTodo(req, res){
+export function toggleTodo(req, res){
     const id = Number(req.params.id);
-    const todo = await toggleTodoByIdService(id, req.body.task);
+    const todo = toggleTodoByIdService(id);
 
-    if(todo.affectedRows==0){
+    if(!todo){
         return res.status(400).json({error : "Todo not found"});
     }
-
-    todo.task = req.body.task;
     res.json({message:"Toggled", todo});
+
 }
 
 
-export async function removeTodo(req, res){
+export function removeTodo(req, res){
     const id = Number(req.params.id);
-    const todo = await deleteTodoByIdService(id);
+    const todo = deleteTodoByIdService(id);
 
     if(!todo){
-        return res.status(400).json({error: "Todo not found"});
+        return res.status(400).json({error: "Todo not found"})
     }
 
-    res.json({message:"Deleted Successfully"});
+    res.json({message:"Deleted Successfully"})
 }
 
 export async function getTodo(req, res){
