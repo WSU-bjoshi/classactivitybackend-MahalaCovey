@@ -3,7 +3,8 @@
 import * as ToDoModel from "../models/todo.models.js"
 
 export async function getUserTodosService(userId){
-    return await Todo.findAll({ where: {userId}, order: [["id", "ASC"]]});
+    console.trace("User ID in getUserTodosService", userId);
+    return await ToDoModel.findAll(userId);
 }
 
 export async function createUserTodoService(userId, task){
@@ -15,10 +16,18 @@ export async function createUserTodoService(userId, task){
     return await ToDoModel.createUserTodo(userId, task);
 }
 
-export async function toggleTodoByIdService(id){
-    return ToDoModel.toggleTodoById(id);
+export async function toggleTodoByIdService(userId, id){
+    return ToDoModel.toggleTodoById(userId, id);
 }
 
 export async function deleteTodoByIdService(id){
     return ToDoModel.deleteTodoById(id);
+}
+
+export async function getTodoByIdService(id){
+    // const todo = todos.find(t => t.id === id);
+    // if(!todo){
+    //     return null;
+    // }
+    return ToDoModel.getTodoById(id);
 }

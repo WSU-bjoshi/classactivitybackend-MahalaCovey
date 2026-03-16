@@ -1,7 +1,7 @@
-import {getUserTodosService, createUserTodoService, toggleTodoByIdService, deleteTodoByIdService} from "../services/todo.service.js";
+import {getUserTodosService, createUserTodoService, toggleTodoByIdService, deleteTodoByIdService, getTodoByIdService} from "../services/todo.service.js";
 
 export async function listTodos(req, res){
-    const todos = await getUserTodosService(req.user.id);
+    const todos = await getUserTodosService(req.user.user_id);
     res.json({count: todos.length, todos});
 }
 
@@ -21,7 +21,7 @@ export async function createUserTodos(req, res){
 
 export function toggleTodo(req, res){
     const id = Number(req.params.id);
-    const todo = toggleTodoByIdService(id);
+    const todo = toggleTodoByIdService(req.user.user_id, id);
 
     if(!todo){
         return res.status(400).json({error : "Todo not found"});
