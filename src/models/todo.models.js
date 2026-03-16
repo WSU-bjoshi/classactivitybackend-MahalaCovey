@@ -32,24 +32,36 @@ export async function toggleTodoById(userId, id){
 
 }
 
-export async function toggleTaskById(userId, task){
-    //const task = todos.find(t => t.id === id);
-    if(!task){
-        return null;
+// export async function toggleTaskById(userId, task){
+//     //const task = todos.find(t => t.id === id);
+//     if(!task){
+//         return null;
+//     }
+//     task.completed= !task.completed;
+//     return task;
+// }
+
+export async function deleteTodoById(userId, task) {
+  const deleted = await Todo.destroy({
+    where: {
+      user_Id: userId,
+      task_id: task
     }
-    task.completed= !task.completed;
-    return task;
+  });
+
+  return deleted;
 }
 
-export async function deleteTodoById(id){
-   const todoIndex = todos.findIndex(t => t.id === id);
+// export async function deleteTodoById(userId, task){
+// //    const todoIndex = todos.findIndex(t => t.id === id);
+//     await userId.destroy();
 
-    if(todoIndex === -1){
-        return null;
-    }
+//     // if(todoIndex === -1){
+//     //     return null;
+//     // }
 
-    return todos.splice(id, 1)[0];
-}
+//     // return todos.splice(id, 1)[0];
+// }
 
 export async function getTodoById(id){
     return await Todo.findByPk(id);

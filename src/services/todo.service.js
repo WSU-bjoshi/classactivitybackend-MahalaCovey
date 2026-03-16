@@ -20,8 +20,8 @@ export async function toggleTodoByIdService(userId, id){
     return ToDoModel.toggleTodoById(userId, id);
 }
 
-export async function deleteTodoByIdService(id){
-    return ToDoModel.deleteTodoById(id);
+export async function deleteTodoByIdService(userId, id){
+    return ToDoModel.deleteTodoById(userId, id);
 }
 
 export async function getTodoByIdService(id){
