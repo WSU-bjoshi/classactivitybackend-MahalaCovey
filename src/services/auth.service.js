@@ -27,7 +27,7 @@ export async function register({name, email, password}){
 
         const token = signAccessToken( {sub: String(user.user_id),  email: user.user_email})
 
-        return {ok: true, data:{token, user:{id: user.user_id, name: user.user_name}}}
+        return {ok: true, data:{token, user:{id: user.user_id, name: user.user_name, role: user.user_role}}}
 
 }
 
@@ -49,5 +49,5 @@ export async function login({email, password}){
     }
 
     const token = signAccessToken({sub: String(user.user_id), email: user.user_email});
-    return {ok: true, data: {token, user:{id:user.user_id, name: user.user_name, email: user.user_email}}};
+    return {ok: true, data: {token, user:{id:user.user_id, name: user.user_name, email: user.user_email, role: user.user_role}}};
 }
