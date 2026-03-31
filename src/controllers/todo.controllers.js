@@ -28,6 +28,7 @@ export function toggleTodo(req, res){
     }
     res.json({message:"Toggled", todo});
 
+    // Can say return todo;
 }
 
 

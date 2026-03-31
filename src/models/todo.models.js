@@ -9,7 +9,7 @@ let todos =[
     {id:2, task:"Buy eggs", done: false}
 ]
  export async function findAll(user_Id){
-  return await Todo.findAll({ where: {user_Id}, order: [["task_id", "ASC"]]}); 
+  return await Todo.findAll({ where: {user_Id}, order: [["task_id", "DESC"]]}); // Was ASC
  }
 
 // Creates a task
