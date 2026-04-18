@@ -26,11 +26,20 @@ const User = sequelize.define(
             type: DataTypes.ENUM("admin", "staff", "user"),
             allowNull: false,
             default:"user"
+        },
+        passwordResetTokenHash:{
+            type: DataTypes.STRING(255),
+            allowNull: true,
+        },
+        passwordResetExpiresAt:{
+            type: DataTypes.DATE,
+            allowNull: true
         }
+
     },
     {
         tableName: "users",
-        timestamps: false,
+        timestamps: true,
         indexes: [{unique:true, fields:["user_email"]}]
     }
 );
